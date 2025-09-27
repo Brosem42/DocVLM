@@ -18,6 +18,7 @@ stop_words = set(stopwords.words('english'))
 stemmer = PorterStemmer()
 
 #load fine tuned model + tokenizer
+import pickle
 model_name = 'bert_company_model'
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
