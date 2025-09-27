@@ -5,8 +5,7 @@ import streamlit as st # type: ignore
 #ui design
 st.title("VLM Document Classifier with Bert")
 st.write("" \
-"This project uses a vision language model to classify PDF documents for business transactions occurring within enterprise environments." \
- 
+"This project uses a vision language model to classify PDF documents for business transactions occurring within enterprise environments. " \
 "The model is trained on a custom dataset of business documents, including invoices, purchase orders, shipping orders, inventory, etc." \
 ""
 )
