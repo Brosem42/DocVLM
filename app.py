@@ -19,7 +19,7 @@ stop_words = set(stopwords.words('english'))
 stemmer = PorterStemmer()
 
 #load fine tuned model + tokenizer
-model_name = '/Users/briannamitchell/Downloads/DocVLM/pytorch_model.bin'
+model_name = 'pytorch_model.bin'
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
 label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
