@@ -5,21 +5,30 @@ import PyPDF2 # type: ignore
 from transformers import AutoTokenizer, AutoModelForSequenceClassification # type: ignore
 import torch #type: ignore
 import numpy as np # type: ignore
-import pickle as pkl
+import pickle 
 import re
 from nltk.corpus import stopwords #type: ignore
 from nltk.stem import PorterStemmer #type: ignore
 import nltk #type: ignore
 from PIL import Image #type: ignore
+from pathlib import Path
 
 #how we perform the regular clean text with NLTK + preprocessing techniques 
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 stemmer = PorterStemmer()
 
+
 #load fine tuned model + tokenizer
 import pickle
-model_name = 'bert_company_model'
+HERE = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+label_encoder_path = HERE / "label_encoder.pkl"
+with open(label_encoder_path, "rb") as f:
+    label_encoder = pickle.load(f)
+
+model_path = HERE / "bert_company_model"
+model_name = './bert_company_model'
+model = model_name(model_path)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
 label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
