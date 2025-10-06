@@ -1,12 +1,12 @@
 
 # Page title
 import streamlit as st # type: ignore
-import PyPDF2 # type: ignore
+import PyPDF2 #type: ignore
+import PDFReader # type: ignore
 from transformers import AutoTokenizer, AutoModelForSequenceClassification # type: ignore
 import torch #type: ignore
 import numpy as np # type: ignore
 import pickle 
-import glob
 import os
 import re
 from nltk.corpus import stopwords #type: ignore
@@ -34,12 +34,17 @@ def __init__(self, model_path, tokenizer, label_encoder):
     label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
     return model_path, tokenizer, label_encoder
 
+model = None
+tokenizer = None
+label_encoder = None
+
 def clean_text(text): #clean the input text
     text = re.sub(r'[^\w\s]', '', text) #remove special characters
     text = re.sub(r'\s+', ' ', text) #remove extra whitespace
     text = " ".join([stemmer.stem(word) for word in text.split() if word not in stop_words]) #removed
     text = text.lower() #convert to lowercase
     return text
+
 
 #function for prediction
 def predict(text):
