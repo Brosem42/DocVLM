@@ -6,6 +6,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification # typ
 import torch #type: ignore
 import numpy as np # type: ignore
 import pickle 
+import glob
+import os
 import re
 from nltk.corpus import stopwords #type: ignore
 from nltk.stem import PorterStemmer #type: ignore
@@ -21,18 +23,23 @@ stemmer = PorterStemmer()
 
 #load fine tuned model + tokenizer
 import pickle
-HERE = Path(__file__).parent if "__file__" in locals() else Path.cwd()
-label_encoder_path = HERE / "label_encoder.pkl"
-with open(label_encoder_path, "rb") as f:
-    label_encoder = pickle.load(f)
+class BertModel:
+   def __init__(self, model_path, tokenizer, label_encoder):
+      self.model_path = model_path
+      self.tokenizer = tokenizer
+      self.label_encoder = label_encoder
 
-model_path = HERE / "./bert_company_model"
-model_name = './bert_company_model'
-model = model_name(model_path)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
-label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
+      model_files = [path for path in glob.glob('./bert_company_model/**', recursive=True) if os.path.isfile(path)]
+      for model_path in model_files:
+          print(model_path)
+          model_path = AutoModelForSequenceClassification.from_pretrained(model_path)
+          tokenizer = AutoTokenizer.from_pretrained(model_path)
+          label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
+          return BertModel(model_path, tokenizer, label_encoder)
 
+model = BertModel()
+tokenizer = model.tokenizer
+label_encoder = model.label_encoder
 
 def clean_text(text): #clean the input text
     text = re.sub(r'[^\w\s]', '', text) #remove special characters
