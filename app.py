@@ -40,11 +40,11 @@ def clean_text(text): #clean the input text
     text = text.lower() #convert to lowercase
     return text
 
-absolute_path = os.path.abspath('bert_company_model')
-model_path = AutoModelForSequenceClassification.from_pretrained(absolute_path)
-model = model_path
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
+model = []
+model_path = []
+tokenizer = []
+label_encoder = []
+
 
 #function for prediction
 def predict(text):
