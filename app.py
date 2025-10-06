@@ -23,23 +23,16 @@ stemmer = PorterStemmer()
 
 #load fine tuned model + tokenizer
 import pickle
-class BertModel:
-   def __init__(self, model_path, tokenizer, label_encoder):
-      self.model_path = model_path
-      self.tokenizer = tokenizer
-      self.label_encoder = label_encoder
+def __init__(self, model_path, tokenizer, label_encoder):
+    self.model_path = model_path
+    self.tokenizer = tokenizer
+    self.label_encoder = label_encoder
 
-      absolute_path = os.path.abspath('./bert_company_model/')
-      for model_path in absolute_path:
-          print(model_path)
-          model_path = AutoModelForSequenceClassification.from_pretrained(model_path)
-          tokenizer = AutoTokenizer.from_pretrained(model_path)
-          label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
-          return BertModel(model_path, tokenizer, label_encoder)
-
-model = BertModel(model_path=None, tokenizer=None, label_encoder=None)
-tokenizer = model.tokenizer
-label_encoder = model.label_encoder
+    absolute_path = os.path.abspath('bert_company_model')
+    model_path = AutoModelForSequenceClassification.from_pretrained(absolute_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
+    return model_path, tokenizer, label_encoder
 
 def clean_text(text): #clean the input text
     text = re.sub(r'[^\w\s]', '', text) #remove special characters
