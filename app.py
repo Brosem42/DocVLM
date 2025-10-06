@@ -26,7 +26,7 @@ label_encoder_path = HERE / "label_encoder.pkl"
 with open(label_encoder_path, "rb") as f:
     label_encoder = pickle.load(f)
 
-model_path = HERE / "bert_company_model"
+model_path = HERE / "./bert_company_model"
 model_name = './bert_company_model'
 model = model_name(model_path)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
