@@ -76,7 +76,7 @@ st.write("" \
 
 @st.cache_resource
 def load_BertPDFModel():
-    return BertPDFModel(model_dir='bert_company_model', label_encoder_path='label_encoder.pkl')
+    return BertPDFModel(model_dir='./bert_company_model', label_encoder_path='./label_encoder.pkl')
 
 bert = load_BertPDFModel()
 #file upload
