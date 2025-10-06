@@ -33,16 +33,18 @@ def __init__(self, model_path, tokenizer, label_encoder):
     label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
     return model_path, tokenizer, label_encoder
 
-model = None
-tokenizer = None
-label_encoder = None
-
 def clean_text(text): #clean the input text
     text = re.sub(r'[^\w\s]', '', text) #remove special characters
     text = re.sub(r'\s+', ' ', text) #remove extra whitespace
     text = " ".join([stemmer.stem(word) for word in text.split() if word not in stop_words]) #removed
     text = text.lower() #convert to lowercase
     return text
+
+absolute_path = os.path.abspath('bert_company_model')
+model_path = AutoModelForSequenceClassification.from_pretrained(absolute_path)
+model = model_path
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
 
 #function for prediction
 def predict(text):
