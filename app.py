@@ -29,8 +29,8 @@ class BertModel:
       self.tokenizer = tokenizer
       self.label_encoder = label_encoder
 
-      model_files = [path for path in glob.glob('./bert_company_model/**', recursive=True) if os.path.isfile(path)]
-      for model_path in model_files:
+      absolute_path = os.path.abspath('./bert_company_model/')
+      for model_path in absolute_path:
           print(model_path)
           model_path = AutoModelForSequenceClassification.from_pretrained(model_path)
           tokenizer = AutoTokenizer.from_pretrained(model_path)
