@@ -1,7 +1,7 @@
 
 # Page title
 import streamlit as st # type: ignore
-from PyPDF2 import PdfReader #type: ignore
+from pypdf import PdfReader #type: ignore
 from transformers import AutoTokenizer, AutoModelForSequenceClassification # type: ignore
 import torch #type: ignore
 import numpy as np # type: ignore
@@ -44,7 +44,6 @@ def clean_text(text): #clean the input text
     text = text.lower() #convert to lowercase
     return text
 
-
 #function for prediction
 def predict(text):
   text = clean_text(text)
@@ -61,10 +60,8 @@ def predict(text):
   return label_encoder.inverse_transform([predicted_class])[0]
 #PDF extraction functions
 
-
 def extract_text_from_pdf(file):
-    PyPDF2 = None
-    pdf_reader = PyPDF2.PdfReader(file) # type: ignore # create object to read pdf with PdfReader
+    pdf_reader = pypdf.PdfReader(file) # type: ignore # create object to read pdf with PdfReader
     text = "" #creating a var to hold the text
     #run looop to extract text from each page because pdfs can have multiple pages + num of pages for user would be unknown, I'll handle it dynamically with loop
     for page in range(len(pdf_reader.pages)): #run pages until end of page (if 3 pages, then the loop will run 3 times)
