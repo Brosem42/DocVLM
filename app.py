@@ -37,7 +37,7 @@ class BertModel:
           label_encoder = pickle.load(open('label_encoder.pkl', 'rb'))
           return BertModel(model_path, tokenizer, label_encoder)
 
-model = BertModel()
+model = BertModel(model_path=None, tokenizer=None, label_encoder=None)
 tokenizer = model.tokenizer
 label_encoder = model.label_encoder
 
